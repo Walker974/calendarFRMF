@@ -1,13 +1,10 @@
 package org.calendar.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import org.calendar.dto.StadiumEventDto;
-import org.calendar.entities.StadiumEvent;
 import org.calendar.mappers.StadiumEventConverter;
 import org.calendar.services.StadiumEventService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,5 @@
 package org.calendar.mappers;
 
-import org.calendar.dto.StadiumDto;
 import org.calendar.dto.StadiumEventDto;
 import org.calendar.entities.Stadium;
 import org.calendar.entities.StadiumEvent;
