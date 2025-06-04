@@ -10,15 +10,14 @@ import org.calendar.services.StadiumEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/stadium-events")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class StadiumEventController {
 
     private final StadiumEventService stadiumEventService;
@@ -38,6 +37,16 @@ public class StadiumEventController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/{stadiumId}", method = RequestMethod.GET)
+    @Operation(summary = "Get events by stadium ID", description = "Retrieve a list of events for a specific stadium")
+    public ResponseEntity<List<StadiumEventDto>> getEventsByStadiumId(@PathVariable Long stadiumId) {
+        List<StadiumEventDto> events = StadiumEventConverter.toDtoList(stadiumEventService.getEventsByStadiumId(stadiumId));
+        if (events.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(events);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(events);
     }
 
 }

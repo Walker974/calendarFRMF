@@ -1,6 +1,9 @@
 package org.calendar.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @Entity
@@ -10,12 +13,9 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class Stadium {
+public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "city_id", nullable = false)
-    private City city;
 }

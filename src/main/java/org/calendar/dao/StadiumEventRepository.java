@@ -6,5 +6,5 @@ import org.calendar.entities.StadiumEvent;
 import java.util.List;
 
 public interface StadiumEventRepository extends JpaRepository<StadiumEvent, Long> {
-    List<StadiumEvent> findByStadium(Stadium stadium);
+    List<StadiumEvent> findByStadiumId(Long stadiumId);
 }

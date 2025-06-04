@@ -13,7 +13,7 @@ public class StadiumEventService {
     private final StadiumEventRepository stadiumEventRepository;
 
     public StadiumEvent createEvent(StadiumEvent event) {
-        List<StadiumEvent> events = stadiumEventRepository.findByStadium(event.getStadium());
+        List<StadiumEvent> events = stadiumEventRepository.findByStadiumId(event.getStadium().getId());
         for (StadiumEvent existing : events) {
             if (event.getStartTime().isBefore(existing.getEndTime())
                     && event.getEndTime().isAfter(existing.getStartTime())) {
@@ -25,5 +25,9 @@ public class StadiumEventService {
 
     public List<StadiumEvent> getAllEvents() {
         return stadiumEventRepository.findAll();
+    }
+
+    public List<StadiumEvent> getEventsByStadiumId(Long stadiumId) {
+        return stadiumEventRepository.findByStadiumId(stadiumId);
     }
 }

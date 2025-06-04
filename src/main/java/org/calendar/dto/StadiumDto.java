@@ -1,3 +1,5 @@
 package org.calendar.dto;
 
-public record StadiumDto(Long id, String name, String location) {}
+import org.calendar.entities.City;
+
+public record StadiumDto(Long id, String name, City city) {}

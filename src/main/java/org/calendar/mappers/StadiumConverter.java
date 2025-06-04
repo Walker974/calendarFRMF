@@ -13,7 +13,7 @@ public class StadiumConverter {
         return new StadiumDto(
                 stadium.getId(),
                 stadium.getName(),
-                stadium.getLocation()
+                stadium.getCity()
         );
     }
 
@@ -24,7 +24,7 @@ public class StadiumConverter {
         Stadium stadium = new Stadium();
         stadium.setId(dto.id());
         stadium.setName(dto.name());
-        stadium.setLocation(dto.location());
+        stadium.setCity(dto.city());
         return stadium;
     }
 

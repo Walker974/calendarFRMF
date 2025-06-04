@@ -10,12 +10,14 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class Stadium {
+public class Organizer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String email;
+    private String phoneNumber;
     @ManyToOne
-    @JoinColumn(name = "city_id", nullable = false)
-    private City city;
+    @JoinColumn(name = "organizer_type_id", nullable = false)
+    private OrganizerType organizerType;
 }

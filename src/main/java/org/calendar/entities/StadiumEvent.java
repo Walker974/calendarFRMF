@@ -27,4 +27,10 @@ public class StadiumEvent {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "home_team_id", nullable = false)
+    private Team homeTeam;
+    @ManyToOne
+    @JoinColumn(name = "away_team_id", nullable = false)
+    private Team awayTeam;
 }
