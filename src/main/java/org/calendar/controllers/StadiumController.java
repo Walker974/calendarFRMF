@@ -23,8 +23,12 @@ public class StadiumController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @Operation(summary = "Get all stadiums", description = "Retrieve a list of all stadiums")
-    public List<StadiumDto> getAllStadiums() {
-        return StadiumConverter.toDtoList(stadiumService.getAllStadiums());
+    public ResponseEntity<List<StadiumDto>> getAllStadiums() {
+        List<StadiumDto> stadiums = StadiumConverter.toDtoList(stadiumService.getAllStadiums());
+        if (stadiums.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(stadiums);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
