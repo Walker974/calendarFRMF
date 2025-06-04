@@ -36,7 +36,7 @@ public class OrganizerController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Operation(summary = "Create a new organizer", description = "Add a new organizer to the system")
-    public ResponseEntity<OrganizerDto> createOrganizer(OrganizerDto organizerDto) {
+    public ResponseEntity<OrganizerDto> createOrganizer(@RequestBody OrganizerDto organizerDto) {
         Organizer organizer = OrganizerConverter.toEntity(organizerDto);
         Organizer createdOrganizer = organizerService.createOrganizer(organizer);
         return ResponseEntity.status(HttpStatus.CREATED).body(OrganizerConverter.toDto(createdOrganizer));
