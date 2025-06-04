@@ -22,9 +22,6 @@ public class StadiumController {
     @Operation(summary = "Get all stadiums", description = "Retrieve a list of all stadiums")
     public ResponseEntity<List<StadiumDto>> getAllStadiums() {
         List<StadiumDto> stadiums = StadiumConverter.toDtoList(stadiumService.getAllStadiums());
-        if (stadiums.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
         return ResponseEntity.status(HttpStatus.OK).body(stadiums);
     }
 

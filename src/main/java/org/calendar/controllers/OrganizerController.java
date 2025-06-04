@@ -24,9 +24,6 @@ public class OrganizerController {
     @Operation(summary = "Get all organizers", description = "Retrieve a list of all organizers")
     public ResponseEntity<List<OrganizerDto>> getAllOrganizers() {
         List<OrganizerDto> organizers = OrganizerConverter.toDtoList(organizerService.getAllOrganizers());
-        if (organizers.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
         return ResponseEntity.status(HttpStatus.OK).body(organizers);
     }
 
@@ -34,9 +31,6 @@ public class OrganizerController {
     @Operation(summary = "Get organizer by ID", description = "Retrieve an organizer by its ID")
     public ResponseEntity<OrganizerDto> getOrganizerById(@PathVariable Long id) {
         Organizer organizer = organizerService.getOrganizerById(id);
-        if (organizer == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
         return ResponseEntity.status(HttpStatus.OK).body(OrganizerConverter.toDto(organizer));
     }
 

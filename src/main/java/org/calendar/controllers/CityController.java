@@ -23,9 +23,6 @@ public class CityController {
     @Operation(summary = "Get all cities", description = "Retrieve a list of all cities")
     public ResponseEntity<List<CityDto>> getAllCities() {
         List<CityDto> cities = CityConverter.toDtoList(cityService.getAllCities());
-        if (cities.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of());
-        }
         return ResponseEntity.status(HttpStatus.OK).body(cities);
     }
 

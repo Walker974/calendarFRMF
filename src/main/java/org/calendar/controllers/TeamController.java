@@ -27,9 +27,6 @@ public class TeamController {
     @Operation(summary = "Get all teams", description = "Retrieve a list of all teams")
     public ResponseEntity<List<TeamDto>> getAllTeams() {
         List<TeamDto> teams = TeamConverter.toDtoList(teamService.getAllTeams());
-        if (teams.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
-        }
         return ResponseEntity.status(HttpStatus.OK).body(teams);
     }
 

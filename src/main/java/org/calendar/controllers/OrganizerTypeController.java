@@ -23,9 +23,6 @@ public class OrganizerTypeController {
     @Operation(summary = "Get all organizer types", description = "Retrieve a list of all organizer types")
     public ResponseEntity<List<OrganizerTypeDto>> getAllOrganizerTypes() {
         List<OrganizerTypeDto> organizerTypes = OrganizerTypeConverter.toDtoList(organizerTypeService.getAllOrganizerTypes());
-        if (organizerTypes.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(organizerTypes);
-        }
         return ResponseEntity.status(HttpStatus.OK).body(organizerTypes);
     }
 
@@ -33,9 +30,6 @@ public class OrganizerTypeController {
     @Operation(summary = "Get organizer type by ID", description = "Retrieve an organizer type by its ID")
     public ResponseEntity<OrganizerTypeDto> getOrganizerTypeById(@PathVariable Long id) {
         OrganizerTypeDto organizerType = OrganizerTypeConverter.toDto(organizerTypeService.getOrganizerTypeById(id));
-        if (organizerType == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
         return ResponseEntity.status(HttpStatus.OK).body(organizerType);
     }
 

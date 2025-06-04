@@ -24,8 +24,9 @@ public class StadiumEventController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @Operation(summary = "Get all stadium events", description = "Retrieve a list of all stadium events")
-    public List<StadiumEventDto> getAllEvents() {
-        return StadiumEventConverter.toDtoList(stadiumEventService.getAllEvents());
+    public ResponseEntity<List<StadiumEventDto>> getAllStadiumEvents() {
+        List<StadiumEventDto> events = StadiumEventConverter.toDtoList(stadiumEventService.getAllEvents());
+        return ResponseEntity.status(HttpStatus.OK).body(events);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
@@ -43,9 +44,6 @@ public class StadiumEventController {
     @Operation(summary = "Get events by stadium ID", description = "Retrieve a list of events for a specific stadium")
     public ResponseEntity<List<StadiumEventDto>> getEventsByStadiumId(@PathVariable Long stadiumId) {
         List<StadiumEventDto> events = StadiumEventConverter.toDtoList(stadiumEventService.getEventsByStadiumId(stadiumId));
-        if (events.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(events);
-        }
         return ResponseEntity.status(HttpStatus.OK).body(events);
     }
 
