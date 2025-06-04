@@ -15,6 +15,7 @@ public class Organizer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
+    private String name;
     private String phoneNumber;
     @ManyToOne
     @JoinColumn(name = "organizer_type_id", nullable = false)

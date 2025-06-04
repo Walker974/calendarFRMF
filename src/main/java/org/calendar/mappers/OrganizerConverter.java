@@ -14,6 +14,7 @@ public class OrganizerConverter {
         OrganizerDto dto = new OrganizerDto(
                 organizer.getId(),
                 organizer.getEmail(),
+                organizer.getName(),
                 organizer.getPhoneNumber(),
                 organizer.getOrganizerType()
         );
@@ -28,6 +29,7 @@ public class OrganizerConverter {
         return new Organizer(
                 dto.id(),
                 dto.email(),
+                dto.name(),
                 dto.phoneNumber(),
                 dto.organizerType()
         );
