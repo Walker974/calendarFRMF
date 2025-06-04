@@ -11,10 +11,13 @@ public class OrganizerConverter {
         if (organizer == null) {
             return null;
         }
-        OrganizerDto dto = new OrganizerDto();
-        dto.setId(organizer.getId());
-        dto.setName(organizer.getName());
-        // Add more fields conversion as needed
+        OrganizerDto dto = new OrganizerDto(
+                organizer.getId(),
+                organizer.getEmail(),
+                organizer.getPhoneNumber(),
+                organizer.getOrganizerType()
+        );
+
         return dto;
     }
 
@@ -22,11 +25,12 @@ public class OrganizerConverter {
         if (dto == null) {
             return null;
         }
-        Organizer organizer = new Organizer();
-        organizer.setId(dto.getId());
-        organizer.setName(dto.getName());
-        // Add more fields conversion as needed
-        return organizer;
+        return new Organizer(
+                dto.id(),
+                dto.email(),
+                dto.phoneNumber(),
+                dto.organizerType()
+        );
     }
 
     public static List<OrganizerDto> toDtoList(List<Organizer> organizers) {
