@@ -21,7 +21,8 @@ public class StadiumEventConverter {
                 event.getEndTime(),
                 event.getDescription(),
                 event.getHomeTeam(),
-                event.getAwayTeam()
+                event.getAwayTeam(),
+                event.getOrganizer()
         );
     }
 
@@ -37,6 +38,9 @@ public class StadiumEventConverter {
                 .startTime(dto.startTime())
                 .endTime(dto.endTime())
                 .description(dto.description())
+                .homeTeam(dto.homeTeam())
+                .awayTeam(dto.awayTeam())
+                .organizer(dto.organizer())
                 .build();
     }
 
