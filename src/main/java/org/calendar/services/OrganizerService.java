@@ -14,9 +14,7 @@ public class OrganizerService {
     private final OrganizerRepository organizerRepository;
 
     public Organizer createOrganizer(Organizer organizer) {
-        if (organizer.getName() == null || organizer.getName().isEmpty()) {
-            throw new IllegalArgumentException("Organizer name cannot be null or empty");
-        } // TODO: add more validation as needed
+         // TODO: add more validation as needed
         return organizerRepository.save(organizer);
     }
 
