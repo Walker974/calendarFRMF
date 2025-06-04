@@ -6,10 +6,7 @@ import org.calendar.dto.TeamDto;
 import org.calendar.mappers.TeamConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class TeamController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Operation(summary = "Create a new team", description = "Create a new team with the provided details")
-    public TeamDto createTeam(TeamDto teamDto) {
+    public TeamDto createTeam(@RequestBody TeamDto teamDto) {
         return TeamConverter.toDto(teamService.createTeam(TeamConverter.toEntity(teamDto)));
     }
 
