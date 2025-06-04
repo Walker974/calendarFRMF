@@ -33,4 +33,7 @@ public class StadiumEvent {
     @ManyToOne
     @JoinColumn(name = "away_team_id", nullable = false)
     private Team awayTeam;
+    @ManyToOne
+    @JoinColumn(name = "organizer_id", nullable = false)
+    private Organizer organizer;
 }
