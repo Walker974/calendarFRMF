@@ -1,4 +1,4 @@
 package org.calendar.dto;
 
-public record OrganizerTypeDto(Long id, String typeName, String description, int priority) {
+public record OrganizerTypeDto(Long id, String name, String description, int priority) {
 }

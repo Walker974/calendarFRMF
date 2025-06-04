@@ -14,7 +14,7 @@ public class OrganizerTypeService {
     private final OrganizerTypeRepository organizerTypeRepository;
 
     public OrganizerType createOrganizerType(OrganizerType organizerType) {
-        if (organizerType.getTypeName() == null || organizerType.getTypeName().isEmpty()) {
+        if (organizerType.getName() == null || organizerType.getName().isEmpty()) {
             throw new IllegalArgumentException("Organizer type name cannot be null or empty");
         }
         return organizerTypeRepository.save(organizerType);

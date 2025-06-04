@@ -13,7 +13,7 @@ public class OrganizerTypeConverter {
         }
         return new OrganizerTypeDto(
                 organizerType.getId(),
-                organizerType.getTypeName(),
+                organizerType.getName(),
                 organizerType.getDescription(),
                 organizerType.getPriority()
         );
@@ -25,7 +25,7 @@ public class OrganizerTypeConverter {
         }
         OrganizerType organizerType = new OrganizerType();
         organizerType.setId(dto.id());
-        organizerType.setTypeName(dto.typeName());
+        organizerType.setName(dto.name());
         organizerType.setDescription(dto.description());
         organizerType.setPriority(dto.priority());
         return organizerType;
