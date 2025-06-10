@@ -2,16 +2,19 @@ package org.calendar.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "stadium_events")
+@Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-@Builder
+@SuperBuilder
 public class StadiumEvent {
 
     @Id
@@ -28,12 +31,9 @@ public class StadiumEvent {
     private LocalDateTime endTime;
     private String description;
     @ManyToOne
-    @JoinColumn(name = "home_team_id", nullable = false)
-    private Team homeTeam;
-    @ManyToOne
-    @JoinColumn(name = "away_team_id", nullable = false)
-    private Team awayTeam;
-    @ManyToOne
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
+    @ManyToOne
+    @JoinColumn(name = "event_type_id", nullable = false)
+    private EventType eventType;
 }
