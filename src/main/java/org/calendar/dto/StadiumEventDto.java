@@ -1,8 +1,33 @@
 package org.calendar.dto;
 
-import org.calendar.entities.Organizer;
-import org.calendar.entities.Stadium;
-import org.calendar.entities.Team;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-public record StadiumEventDto(Long id, Stadium stadium, String eventName, LocalDateTime startTime, LocalDateTime endTime, String description, Team homeTeam, Team awayTeam, Organizer organizer) {}
+public record StadiumEventDto(
+        Long id,
+        @NotNull(message = "Stadium ID cannot be null")
+        Long stadiumId,
+        String stadiumName,
+        String stadiumCity,
+        @NotNull(message = "Event name cannot be null")
+        @Size(min = 3, max = 100, message = "Event name must be between 3 and 100 characters")
+        String eventName,
+        @NotNull(message = "Start time cannot be null")
+        LocalDateTime startTime,
+        @NotNull(message = "End time cannot be null")
+        LocalDateTime endTime,
+        @NotNull(message = "Description cannot be null")
+        @Size(min = 10, max = 500, message = "Description must be between 10 and 500 characters")
+        String description,
+        Long homeTeamId,
+        String homeTeamName,
+        Long awayTeamId,
+        String awayTeamName,
+        @NotNull(message = "Organizer ID cannot be null")
+        Long organizerId,
+        String organizerName,
+        @NotNull(message = "Event type ID cannot be null")
+        Long eventTypeId,
+        String eventTypeName
+) {}
