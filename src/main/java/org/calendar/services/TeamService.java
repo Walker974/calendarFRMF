@@ -22,4 +22,9 @@ public class TeamService {
     public List<Team> getAllTeams() {
         return teamRepository.findAll();
     }
+
+    public Team getTeamById(Long id) {
+        return teamRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Team not found with id: " + id));
+    }
 }
