@@ -20,4 +20,9 @@ public class StadiumService {
     public List<Stadium> getAllStadiums() {
         return stadiumRepository.findAll();
     }
+
+    public Stadium getStadiumById(Long id) {
+        return stadiumRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Stadium not found with id: " + id));
+    }
 }
