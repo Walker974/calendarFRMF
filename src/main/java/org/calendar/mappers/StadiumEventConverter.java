@@ -1,4 +1,3 @@
-// java
 package org.calendar.mappers;
 
 import org.calendar.dto.StadiumEventDto;
@@ -8,6 +7,7 @@ import org.calendar.entities.Stadium;
 import org.calendar.entities.Organizer;
 import org.calendar.entities.Team;
 import org.calendar.entities.EventType;
+import org.calendar.entities.Competition;
 
 public class StadiumEventConverter {
 
@@ -19,6 +19,8 @@ public class StadiumEventConverter {
         String homeTeamName = null;
         Long awayTeamId = null;
         String awayTeamName = null;
+        Long competitionId = null;
+        String competitionName = null;
         Long eventTypeId = null;
         String eventTypeName = null;
         if (event instanceof MatchEvent matchEvent) {
@@ -29,6 +31,10 @@ public class StadiumEventConverter {
             if (matchEvent.getAwayTeam() != null) {
                 awayTeamId = matchEvent.getAwayTeam().getId();
                 awayTeamName = matchEvent.getAwayTeam().getName();
+            }
+            if (matchEvent.getCompetition() != null) {
+                competitionId = matchEvent.getCompetition().getId();
+                competitionName = matchEvent.getCompetition().getName();
             }
             if (matchEvent.getEventType() != null) {
                 eventTypeId = matchEvent.getEventType().getId();
@@ -46,6 +52,8 @@ public class StadiumEventConverter {
         String stadiumCity = (stadium != null && stadium.getCity() != null)
                 ? stadium.getCity().getName() : null;
         String organizerName = organizer != null ? organizer.getName() : null;
+        String organizerLogo = organizer != null ? organizer.getLogo() : null;
+        String organizerColor = organizer != null ? organizer.getColor() : null;
         return new StadiumEventDto(
                 event.getId(),
                 stadium != null ? stadium.getId() : null,
@@ -59,8 +67,12 @@ public class StadiumEventConverter {
                 homeTeamName,
                 awayTeamId,
                 awayTeamName,
+                competitionId,
+                competitionName,
                 organizer != null ? organizer.getId() : null,
                 organizerName,
+                organizerLogo,
+                organizerColor,
                 eventTypeId,
                 eventTypeName
         );
@@ -71,8 +83,8 @@ public class StadiumEventConverter {
         boolean anyMatchFieldProvided = dto.homeTeamId() != null || dto.awayTeamId() != null;
         boolean allMatchFieldsProvided = dto.homeTeamId() != null && dto.awayTeamId() != null;
         if (anyMatchFieldProvided) {
-            if (!allMatchFieldsProvided || dto.eventTypeId() == null) {
-                throw new IllegalArgumentException("All match event fields (homeTeamId, awayTeamId, eventTypeId) must be provided");
+            if (!allMatchFieldsProvided || dto.eventTypeId() == null || dto.competitionId() == null) {
+                throw new IllegalArgumentException("All match event fields (homeTeamId, awayTeamId, eventTypeId, competitionId) must be provided");
             }
             MatchEvent matchEvent = new MatchEvent();
             Team homeTeam = new Team();
@@ -84,6 +96,9 @@ public class StadiumEventConverter {
             EventType eventType = new EventType();
             eventType.setId(dto.eventTypeId());
             matchEvent.setEventType(eventType);
+            Competition competition = new Competition();
+            competition.setId(dto.competitionId());
+            matchEvent.setCompetition(competition);
             event = matchEvent;
         } else {
             event = new StadiumEvent();
