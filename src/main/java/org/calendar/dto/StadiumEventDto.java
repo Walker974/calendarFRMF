@@ -24,9 +24,13 @@ public record StadiumEventDto(
         String homeTeamName,
         Long awayTeamId,
         String awayTeamName,
+        Long competitionId,
+        String competitionName,
         @NotNull(message = "Organizer ID cannot be null")
         Long organizerId,
         String organizerName,
+        String organizerLogo,
+        String organizerColor,
         @NotNull(message = "Event type ID cannot be null")
         Long eventTypeId,
         String eventTypeName
