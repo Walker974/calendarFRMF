@@ -1,6 +1,7 @@
 package org.calendar.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.calendar.dto.EventTypeDto;
 import org.calendar.mappers.EventTypeMapper;
@@ -29,7 +30,7 @@ public class EventTypeController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Operation(summary = "Create a new event type", description = "Create a new event type with the provided details")
-    public ResponseEntity<EventTypeDto> createEventType(@RequestBody EventTypeDto eventTypeDto) {
+    public ResponseEntity<EventTypeDto> createEventType(@Valid @RequestBody EventTypeDto eventTypeDto) {
         EventTypeDto createdEventType = eventTypeMapper.toDto(eventTypeService.createEventType(eventTypeMapper.toEntity(eventTypeDto)));
         return ResponseEntity.status(HttpStatus.CREATED).body(createdEventType);
     }

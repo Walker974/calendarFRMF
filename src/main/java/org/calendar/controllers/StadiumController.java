@@ -1,6 +1,7 @@
 package org.calendar.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.calendar.dto.StadiumDto;
 import org.calendar.mappers.StadiumMapper;
@@ -28,7 +29,7 @@ public class StadiumController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Operation(summary = "Create a new stadium", description = "Create a new stadium with the provided details")
-    public ResponseEntity<?> createStadium(@RequestBody StadiumDto stadium) {
+    public ResponseEntity<?> createStadium(@Valid @RequestBody StadiumDto stadium) {
         StadiumDto created = stadiumMapper.toDto(stadiumService.createStadium(stadiumMapper.toEntity(stadium)));
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }

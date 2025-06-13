@@ -1,6 +1,7 @@
 package org.calendar.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.calendar.mappers.CompetitionMapper;
 import org.calendar.services.CompetitionService;
@@ -33,7 +34,7 @@ public class CompetitionController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Operation(summary = "Create a new competition", description = "Create a new competition with the provided details")
-    public ResponseEntity<CompetitionDto> createCompetition(@RequestBody CompetitionDto competitionDto) {
+    public ResponseEntity<CompetitionDto> createCompetition(@Valid @RequestBody CompetitionDto competitionDto) {
         CompetitionDto createdCompetition = competitionMapper.toDto(competitionService.createCompetition(competitionMapper.toEntity(competitionDto)));
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCompetition);
     }

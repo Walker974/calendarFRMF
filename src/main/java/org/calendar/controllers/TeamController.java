@@ -1,5 +1,6 @@
 package org.calendar.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.calendar.services.TeamService;
 import org.calendar.dto.TeamDto;
@@ -28,7 +29,7 @@ public class TeamController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Operation(summary = "Create a new team", description = "Create a new team with the provided details")
-    public TeamDto createTeam(@RequestBody TeamDto teamDto) {
+    public TeamDto createTeam(@Valid @RequestBody TeamDto teamDto) {
         return teamMapper.toDto(teamService.createTeam(teamMapper.toEntity(teamDto)));
     }
 

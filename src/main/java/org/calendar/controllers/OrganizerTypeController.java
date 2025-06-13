@@ -1,6 +1,7 @@
 package org.calendar.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.calendar.dto.OrganizerTypeDto;
 import org.calendar.mappers.OrganizerTypeMapper;
@@ -36,7 +37,7 @@ public class OrganizerTypeController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Operation(summary = "Create a new organizer type", description = "Add a new organizer type to the system")
-    public ResponseEntity<OrganizerTypeDto> createOrganizerType(OrganizerTypeDto organizerTypeDto) {
+    public ResponseEntity<OrganizerTypeDto> createOrganizerType(@Valid @RequestBody OrganizerTypeDto organizerTypeDto) {
         OrganizerTypeDto createdOrganizerType = organizerTypeMapper.toDto(organizerTypeService.createOrganizerType(organizerTypeMapper.toEntity(organizerTypeDto)));
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOrganizerType);
     }
