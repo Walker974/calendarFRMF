@@ -25,7 +25,6 @@ public class StadiumEventService {
             throw new IllegalArgumentException("Stadium not found");
         }
         event.setStadium(persistentStadium);
-
         if (event.getOrganizer() == null || event.getOrganizer().getId() == null) {
             throw new IllegalArgumentException("Organizer ID must be provided");
         }
@@ -34,7 +33,6 @@ public class StadiumEventService {
             throw new IllegalArgumentException("Organizer not found");
         }
         event.setOrganizer(persistentOrganizer);
-
         List<StadiumEvent> events = stadiumEventRepository.findByStadiumId(persistentStadium.getId());
         for (StadiumEvent existing : events) {
             if (event.getStartTime().isBefore(existing.getEndTime())
@@ -64,6 +62,13 @@ public class StadiumEventService {
                     throw new IllegalArgumentException("Event type not found");
                 }
                 matchEvent.setEventType(persistentEventType);
+            }
+            if (matchEvent.getCompetition() != null && matchEvent.getCompetition().getId() != null) {
+                Competition persistentCompetition = matchEvent.getCompetition();
+                if (persistentCompetition.getId() == null) {
+                    throw new IllegalArgumentException("Competition ID must be provided");
+                }
+                matchEvent.setCompetition(persistentCompetition);
             }
         }
         return stadiumEventRepository.save(event);
