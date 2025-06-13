@@ -2,8 +2,11 @@ package org.calendar.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
+
 import java.time.LocalDateTime;
 
+@Builder
 public record StadiumEventDto(
         Long id,
         @NotNull(message = "Stadium ID cannot be null")
