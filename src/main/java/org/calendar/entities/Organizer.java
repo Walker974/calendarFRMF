@@ -20,4 +20,6 @@ public class Organizer {
     @ManyToOne
     @JoinColumn(name = "organizer_type_id", nullable = false)
     private OrganizerType organizerType;
+    private String logo;
+    private String color;
 }
