@@ -16,7 +16,9 @@ public class OrganizerConverter {
                 organizer.getEmail(),
                 organizer.getName(),
                 organizer.getPhoneNumber(),
-                organizer.getOrganizerType()
+                organizer.getOrganizerType(),
+                organizer.getLogo(),
+                organizer.getColor()
         );
 
         return dto;
@@ -31,7 +33,9 @@ public class OrganizerConverter {
                 dto.email(),
                 dto.name(),
                 dto.phoneNumber(),
-                dto.organizerType()
+                dto.organizerType(),
+                dto.logo(),
+                dto.color()
         );
     }
 
