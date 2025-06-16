@@ -8,14 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
 @Hidden
 public class GlobalExceptionHandler {
+    private final Logger log = Logger.getLogger(GlobalExceptionHandler.class.getName());
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(
@@ -34,6 +35,7 @@ public class GlobalExceptionHandler {
                 errors,
                 request.getRequestURI()
         );
+        log.warning("Validation error: " + errors);
         return ResponseEntity.badRequest().body(body);
     }
 
