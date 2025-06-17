@@ -36,4 +36,13 @@ public class StadiumService {
             throw new IllegalArgumentException("Invalid stadium ID: " + stadiumId, e);
         }
     }
+
+    public void deleteStadium(Long stadiumId) {
+        try {
+            Stadium stadium = getStadiumById(stadiumId);
+            stadiumRepository.delete(stadium);
+        } catch (RuntimeException e) {
+            throw new IllegalArgumentException("Invalid stadium ID: " + stadiumId, e);
+        }
+    }
 }
