@@ -25,4 +25,15 @@ public class StadiumService {
         return stadiumRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Stadium not found with id: " + id));
     }
+
+    public Stadium updateStadium(Long stadiumId, Stadium stadium) {
+        try {
+            Stadium existingStadium = getStadiumById(stadiumId);
+            existingStadium.setName(stadium.getName());
+            existingStadium.setCity(stadium.getCity());
+            return stadiumRepository.save(existingStadium);
+        } catch (RuntimeException e) {
+            throw new IllegalArgumentException("Invalid stadium ID: " + stadiumId, e);
+        }
+    }
 }
