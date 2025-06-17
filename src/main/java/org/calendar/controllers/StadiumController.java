@@ -33,4 +33,15 @@ public class StadiumController {
         StadiumDto created = stadiumMapper.toDto(stadiumService.createStadium(stadiumMapper.toEntity(stadium)));
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
+
+    @RequestMapping(value = "/{stadiumId}", method = RequestMethod.PUT)
+    @Operation(summary = "Update a stadium", description = "Update the details of an existing stadium")
+    public ResponseEntity<?> updateStadium(@PathVariable Long stadiumId, @Valid @RequestBody StadiumDto stadium) {
+        try {
+            StadiumDto updated = stadiumMapper.toDto(stadiumService.updateStadium(stadiumId, stadiumMapper.toEntity(stadium)));
+            return ResponseEntity.status(HttpStatus.OK).body(updated);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }
