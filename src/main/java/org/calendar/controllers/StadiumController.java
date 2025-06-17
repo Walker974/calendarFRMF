@@ -44,4 +44,15 @@ public class StadiumController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @RequestMapping(value = "/{stadiumId}", method = RequestMethod.DELETE)
+    @Operation(summary = "Delete a stadium", description = "Delete a stadium by its ID")
+    public ResponseEntity<?> deleteStadium(@PathVariable Long stadiumId) {
+        try {
+            stadiumService.deleteStadium(stadiumId);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }
