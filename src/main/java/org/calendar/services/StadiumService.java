@@ -45,4 +45,12 @@ public class StadiumService {
             throw new IllegalArgumentException("Invalid stadium ID: " + stadiumId, e);
         }
     }
+
+    public List<Stadium> getStadiumsByCityId(Long cityId) {
+        List<Stadium> stadiums = stadiumRepository.findByCityId(cityId);
+        if (stadiums.isEmpty()) {
+            throw new RuntimeException("No stadiums found for city with id: " + cityId);
+        }
+        return stadiums;
+    }
 }
