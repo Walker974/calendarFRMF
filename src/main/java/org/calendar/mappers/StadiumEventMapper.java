@@ -15,7 +15,11 @@ public interface StadiumEventMapper {
                 .eventName(event.getEventName())
                 .startTime(event.getStartTime())
                 .endTime(event.getEndTime())
-                .description(event.getDescription());
+                .description(event.getDescription())
+                .status(event.getStatus())
+                .timeCreated(event.getTimeCreated())
+                .timeUpdated(event.getTimeUpdated())
+                .createdByUserId(event.getCreatedBy() != null ? event.getCreatedBy().getId() : null);
         if (event.getStadium() != null) {
             dto.stadiumId(event.getStadium().getId())
                     .stadiumName(event.getStadium().getName())
@@ -97,7 +101,11 @@ public interface StadiumEventMapper {
         event.setEventName(dto.eventName());
         event.setStartTime(dto.startTime());
         event.setEndTime(dto.endTime());
+        event.setStatus(dto.status());
         event.setDescription(dto.description());
+        event.setTimeCreated(dto.timeCreated());
+        event.setTimeUpdated(dto.timeUpdated());
+        event.setCreatedBy(User.builder().id(dto.createdByUserId()).build());
 
         if (dto.stadiumId() != null) {
             event.setStadium(new Stadium(dto.stadiumId(), dto.stadiumName(),

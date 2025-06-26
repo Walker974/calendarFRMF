@@ -8,6 +8,7 @@ import org.calendar.dto.LoginResponseDto;
 import org.calendar.dto.RegisterRequestDto;
 import org.calendar.entities.Organizer;
 import org.calendar.entities.User;
+import org.calendar.enums.ActionType;
 import org.calendar.enums.Role;
 import org.calendar.mappers.RegisterRequestMapper;
 import org.calendar.security.JwtUtils;
@@ -18,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.HashSet;
 
@@ -30,6 +32,7 @@ public class AuthentificationService {
     private final JwtUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
     private final RegisterRequestMapper registerRequestMapper;
+    private final ActionLogService actionLogService;
 
     public LoginResponseDto login(LoginRequestDto loginRequest) {
         User user = userRepository.findByEmail(loginRequest.email())
@@ -47,6 +50,11 @@ public class AuthentificationService {
 
         String token = jwtUtils.generateToken(authentication);
 
+        actionLogService.log(
+                ActionType.LOGIN,
+                user
+        );
+
         return LoginResponseDto.builder()
                 .token(token)
                 .email(loginRequest.email())
@@ -54,6 +62,7 @@ public class AuthentificationService {
                 .lastName(user.getLastName())
                 .role(user.getRoles().stream().findFirst().orElse(Role.VIEWER))
                 .organizerId(user.getOrganizer() != null ? user.getOrganizer().getId() : null)
+                .userId(user.getId())
                 .build();
     }
 
@@ -79,7 +88,27 @@ public class AuthentificationService {
         } else {
             user.getRoles().add(Role.VIEWER);
         }
-
+        actionLogService.log(
+                ActionType.REGISTER,
+                user
+        );
         userRepository.save(user);
+    }
+
+    public void logout() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            User user = (User) authentication.getPrincipal();
+            actionLogService.log(
+                    ActionType.LOGOUT,
+                    user
+            );
+        }
+        SecurityContextHolder.clearContext();
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + userId));
     }
 }

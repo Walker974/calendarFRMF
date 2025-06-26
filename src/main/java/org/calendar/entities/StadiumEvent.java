@@ -3,6 +3,7 @@ package org.calendar.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.calendar.enums.StadiumEventStatus;
 
 import java.time.LocalDateTime;
 
@@ -36,4 +37,12 @@ public class StadiumEvent {
     @ManyToOne
     @JoinColumn(name = "event_type_id", nullable = false)
     private EventType eventType;
+    @Column(length = 20)
+    @Enumerated(EnumType.STRING)
+    private StadiumEventStatus status;
+    private LocalDateTime timeCreated;
+    private LocalDateTime timeUpdated;
+    @ManyToOne
+    @JoinColumn(name = "created_by", nullable = false)
+    private User createdBy;
 }

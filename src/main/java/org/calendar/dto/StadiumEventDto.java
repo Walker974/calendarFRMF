@@ -3,6 +3,7 @@ package org.calendar.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
+import org.calendar.enums.StadiumEventStatus;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +22,7 @@ public record StadiumEventDto(
         @NotNull(message = "End time cannot be null")
         LocalDateTime endTime,
         @NotNull(message = "Description cannot be null")
-        @Size(min = 10, max = 500, message = "Description must be between 10 and 500 characters")
+        @Size(min = 10, max = 100, message = "Description must be between 10 and 500 characters")
         String description,
         Long homeTeamId,
         String homeTeamName,
@@ -36,5 +37,10 @@ public record StadiumEventDto(
         String organizerColor,
         @NotNull(message = "Event type ID cannot be null")
         Long eventTypeId,
-        String eventTypeName
+        String eventTypeName,
+        StadiumEventStatus status,
+        LocalDateTime timeCreated,
+        LocalDateTime timeUpdated,
+        @NotNull(message = "Created by user ID cannot be null")
+        Long createdByUserId
 ) {}
